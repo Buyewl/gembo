@@ -1,31 +1,31 @@
-name: Node.js CI
+name: Run Gembo Bot
 
 on:
   push:
     branches:
-      - main  # Change this to your default branch if necessary
+      - main
   pull_request:
     branches:
-      - main  # Change this to your default branch if necessary
+      - main
 
 jobs:
-  build:
+  run-bot:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'  # Specify the Node.js version you want to use
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-
-    - name: Use secrets
-      run: |
-        echo "Telegram Bot Token: ${{ secrets.TELEGRAM_BOT_TOKEN }}"
-        echo "Google API Key: ${{ secrets.GOOGLE_API_KEY }}"
+      - name: Run bot
+        env:
+          GOOGLE_API_KEY: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          BOT_API: ${{ secrets.GOOGLE_API_KEY }}
+        run: node bot.js
