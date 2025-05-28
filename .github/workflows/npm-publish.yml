@@ -1,0 +1,33 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch if necessary
+  pull_request:
+    branches:
+      - main  # Change this to your default branch if necessary
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'  # Specify the Node.js version you want to use
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run your script or tests
+      run: npm test  # Change this to your script or test command
+
+    - name: Use secrets
+      run: |
+        echo "Telegram Bot Token: ${{ secrets.TELEGRAM_BOT_TOKEN }}"
+        echo "Google API Key: ${{ secrets.GOOGLE_API_KEY }}"
