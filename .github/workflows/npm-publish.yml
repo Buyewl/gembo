@@ -25,7 +25,7 @@ jobs:
       run: npm install
 
     - name: Run your script or tests
-      run: npm test  # Change this to your script or test command
+      run: npm bot.js # Change this to your script or test command
 
     - name: Use secrets
       run: |
